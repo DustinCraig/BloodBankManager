@@ -52,7 +52,10 @@ namespace BloodBankManager
         #endregion
 
 
-
+        /// <summary>
+        /// Detect whether or not all fields of the new donor form have been filled out.
+        /// </summary>
+        /// <returns>false = no, true = yes</returns>
         public bool AllEntriesFilled()
         {
             if(String.IsNullOrEmpty(donor_name.Text))
@@ -115,6 +118,9 @@ namespace BloodBankManager
             return true; 
         }
 
+        /// <summary>
+        /// Make sure all entries are filled, then save the new donor to the database
+        /// </summary>
         public void Save(object sender, EventArgs e)
         {
             bool allEntriesFilled = AllEntriesFilled(); 
@@ -123,10 +129,21 @@ namespace BloodBankManager
                 Form.ActiveForm.Close();
             }
         }
-
+        /// <summary>
+        /// Clear all fields of the form
+        /// </summary>
         public void Clear(object sender, EventArgs e)
         {
             Utilities.ResetAllControls(this);
+        }
+
+        /// <summary>
+        /// Close the current form 
+        /// </summary>
+        public void Cancel(object sender, EventArgs e)
+        {
+            Utilities.ResetAllControls(this);
+            Form.ActiveForm.Close();
         }
         
 
@@ -138,6 +155,7 @@ namespace BloodBankManager
             //Controls
             this.donor_save.Click += new EventHandler(this.Save);
             this.donor_clear.Click += new EventHandler(this.Clear);
+            this.donor_cancel.Click += new EventHandler(this.Cancel);
         }
 
         private void InitializeComponent()

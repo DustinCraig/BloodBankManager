@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*  Dustin Craig
+ *  Utilities class to handle some control of forms
+ *  06/22/2018
+ * */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +14,10 @@ namespace BloodBankManager
 {
     public class Utilities
     {
+        /// <summary>
+        /// Reset all of the fields of a form 
+        /// </summary>
+        /// <param name="form">The form that will be reset</param>
         public static void ResetAllControls(Control form)
         {
             foreach(Control control in form.Controls)
