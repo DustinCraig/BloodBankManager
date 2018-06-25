@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
+using System.Data.SqlClient;
 
 namespace BloodBankManager
 {
@@ -51,82 +53,28 @@ namespace BloodBankManager
         private ToolStripMenuItem newDonorToolStripMenuItem;
         #endregion
 
-
-        /// <summary>
-        /// Detect whether or not all fields of the new donor form have been filled out.
-        /// </summary>
-        /// <returns>false = no, true = yes</returns>
-        public bool AllEntriesFilled()
-        {
-            if(String.IsNullOrEmpty(donor_name.Text))
-            {
-                donor_warning.Text = "Name field is empty";
-                return false; 
-            }
-            if((blood_a.Checked == false) && (blood_ab.Checked == false) && (blood_b.Checked == false) && (blood_o.Checked == false))
-            {
-                donor_warning.Text = "Please select a Blood Group";
-                return false;
-            }
-            if(String.IsNullOrEmpty(donor_age.Text))
-            {
-                donor_warning.Text = "Age field is empty";
-                return false; 
-            }
-            if(donor_sex.SelectedItem == null)
-            {
-                donor_warning.Text = "Sex field is empty";
-                return false;
-            }
-            if(String.IsNullOrEmpty(donor_street_address.Text))
-            {
-                donor_warning.Text = "Street Address field is empty";
-                return false;
-            }
-            if (String.IsNullOrEmpty(donor_city.Text))
-            {
-                donor_warning.Text = "City field is empty";
-                return false;
-            }
-            if (String.IsNullOrEmpty(donor_zipcode.Text))
-            {
-                donor_warning.Text = "Zipcode field is empty";
-                return false; 
-            }
-            if(donor_state.SelectedItem == null)
-            {
-                donor_warning.Text = "Please select a State";
-                return false;
-            }
-            //TODO: Force the user to have the ###-###-#### template
-            if (String.IsNullOrEmpty(donor_phonenumber.Text))
-            {
-                donor_warning.Text = "Phone Number field is empty";
-                return false; 
-            }
-            if (String.IsNullOrEmpty(donor_email.Text))
-            {
-                donor_warning.Text = "Email field is empty";
-                return false; 
-            }
-            if(donor_rh.SelectedItem == null)
-            {
-                donor_warning.Text = "Please select Rh+ or Rh-";
-                return false;
-            }
-            donor_warning.Text = "";
-            return true; 
-        }
-
         /// <summary>
         /// Make sure all entries are filled, then save the new donor to the database
         /// </summary>
         public void Save(object sender, EventArgs e)
         {
-            bool allEntriesFilled = AllEntriesFilled(); 
-            if(allEntriesFilled == true)
+            bool allEntriesFilled = Utilities.AllEntriesFilled(this);
+            string connString = BloodBankManager.Utilities.GetConnectionString();
+            SqlConnection conn = new SqlConnection(connString);
+
+            try
             {
-                Form.ActiveForm.Close();
+                
+                conn.Open();
+            }
+            catch
+            {
+                MessageBox.Show("Could not connect to database. Please call the help desk");
+
+            }
+            finally
+            {
+                conn.Close();
             }
         }
         /// <summary>
