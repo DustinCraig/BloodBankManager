@@ -12,7 +12,7 @@ using System.Data.SqlClient;
 
 namespace BloodBankManager
 {
-    public partial class Form1 : Form
+    public partial class NewDonor : Form
     {
         #region Items
         private MenuStrip menuStrip1;
@@ -91,11 +91,11 @@ namespace BloodBankManager
         public void Cancel(object sender, EventArgs e)
         {
             Utilities.ResetAllControls(this);
-            Form.ActiveForm.Close();
+            this.Close(); 
         }
         
 
-        public Form1()
+        public NewDonor()
         {
 
             InitializeComponent();

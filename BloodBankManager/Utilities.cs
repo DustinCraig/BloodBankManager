@@ -15,6 +15,12 @@ namespace BloodBankManager
 {
     public class Utilities
     {
+        public Form ThreadForm; 
+        public static void ThreadProc()
+        {
+           // Application.Run(new ThreadForm()); 
+        }
+
         /// <summary>
         /// Get the connection string
         /// </summary>

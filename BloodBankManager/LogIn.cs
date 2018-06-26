@@ -22,6 +22,7 @@ namespace BloodBankManager
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button login_button;
         private System.Windows.Forms.Button exit_button;
+        StringBuilder errorMessages = new StringBuilder();
 
 
         public void Login_Attempt(object sender, EventArgs e)
@@ -29,24 +30,55 @@ namespace BloodBankManager
             string userNameText = this.username.Text;
             string passWordText = this.password.Text;
             string connString = BloodBankManager.Utilities.GetConnectionString();
-            bool allEntriesFilled = Utilities.AllEntriesFilled(this);
-
+            bool allEntriesFilled = Utilities.AllEntriesFilled(this.panel1);
             if (allEntriesFilled == true)
             {
                 SqlConnection connection = new SqlConnection(connString);
                 try
                 {
                     connection.Open();
-                   
+                    string command = @"
+                    EXEC dbo.uspLogin
+                    @pLoginName=@login,
+                    @pPassword=@pass
+                    ";
+
+                    SqlCommand sqlCommand = new SqlCommand(command, connection);
+                    sqlCommand.Parameters.AddWithValue("@login", userNameText);
+                    sqlCommand.Parameters.AddWithValue("@pass", passWordText);
+
+
+                    SqlDataReader reader = sqlCommand.ExecuteReader();
+                    if (reader.Read() == true)
+                    {
+                        this.Hide();
+                        var newDonor = new NewDonor();
+                        newDonor.FormClosed += (s, args) => this.Close();
+                        newDonor.Show(); 
+                    }
+                    else MessageBox.Show("Invalid Username or Password");
+
                 }
-                catch
+                catch (SqlException ex)
                 {
-                    MessageBox.Show("Cannot connect to database. Please call the helpdesk.");
+                    for (int i = 0; i < ex.Errors.Count; i++)
+                    {
+                        errorMessages.Append("Index #" + i + "\n" +
+                            "Message: " + ex.Errors[i].Message + "\n" +
+                            "LineNumber: " + ex.Errors[i].LineNumber + "\n" +
+                            "Source: " + ex.Errors[i].Source + "\n" +
+                            "Procedure: " + ex.Errors[i].Procedure + "\n");
+                    }
+                    Console.WriteLine(errorMessages.ToString());
                 }
                 finally
                 {
                     connection.Close();
                 }
+            }
+            else
+            {
+                MessageBox.Show("Invalid Username or Password");
             }
         }
 
@@ -152,6 +184,7 @@ namespace BloodBankManager
             this.Controls.Add(this.login_button);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.panel1);
+
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
