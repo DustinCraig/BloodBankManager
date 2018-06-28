@@ -537,7 +537,7 @@ namespace BloodBankManager
             this.donor_clear.Text = "Clear";
             this.donor_clear.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // NewDonor
             // 
             this.ClientSize = new System.Drawing.Size(624, 361);
             this.Controls.Add(this.donor_clear);
@@ -578,7 +578,8 @@ namespace BloodBankManager
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Form1";
+            this.Name = "NewDonor";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Blood Bank Management";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

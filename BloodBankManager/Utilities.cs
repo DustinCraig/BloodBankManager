@@ -69,6 +69,7 @@ namespace BloodBankManager
         {
             bool radioExist = false; 
             bool radioBtnCheck = false; 
+
             foreach(Control control in form.Controls)
             {
                 if (control is TextBox textBox)
