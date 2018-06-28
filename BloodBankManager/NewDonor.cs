@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
 using System.Data.SqlClient;
+using BloodBankManager.Models;
 
 namespace BloodBankManager
 {
@@ -59,23 +60,31 @@ namespace BloodBankManager
         public void Save(object sender, EventArgs e)
         {
             bool allEntriesFilled = Utilities.AllEntriesFilled(this);
-            string connString = BloodBankManager.Utilities.GetConnectionString();
-            SqlConnection conn = new SqlConnection(connString);
+            
+            if (allEntriesFilled == true)
+            {
+                var bloodGroup = BloodBankManager.Utilities.GetBloodGroup(this);
+                var donor = new Donor
+                {
+                    Name = donor_name.Text,
+                    Age = donor_age.Text,
+                    BloodGroup = bloodGroup.Text,
+                    Sex = donor_sex.SelectedItem.ToString(),
+                    StreetAddress = donor_street_address.Text,
+                    City = donor_city.Text,
+                    State = donor_state.SelectedItem.ToString(),
+                    Date = DateTime.Parse(donor_date.Text),
+                    PhoneNumber = donor_phonenumber.Text,
+                    Email = donor_email.Text,
+                    Rh = donor_rh.SelectedItem.ToString(),
 
-            try
-            {
-                
-                conn.Open();
+                    //This is a dummy value for @responseMessage to be assigned to if no error occurs
+                    Error = "No Error"
+                };
+                donor.Save();
             }
-            catch
-            {
-                MessageBox.Show("Could not connect to database. Please call the help desk");
-
-            }
-            finally
-            {
-                conn.Close();
-            }
+            else MessageBox.Show("Please fill out all entries before saving");
+            
         }
         /// <summary>
         /// Clear all fields of the form

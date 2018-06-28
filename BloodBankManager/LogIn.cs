@@ -24,7 +24,9 @@ namespace BloodBankManager
         private System.Windows.Forms.Button exit_button;
         StringBuilder errorMessages = new StringBuilder();
 
-
+        /// <summary>
+        /// The login attempt. If all entries are filled it will attempt to log the user into the system 
+        /// </summary>
         public void Login_Attempt(object sender, EventArgs e)
         {
             string userNameText = this.username.Text;
@@ -81,7 +83,9 @@ namespace BloodBankManager
                 MessageBox.Show("Invalid Username or Password");
             }
         }
-
+        /// <summary>
+        /// The function to handle a login attempt
+        /// </summary>
         public LogIn()
         {
             InitializeComponent();

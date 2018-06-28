@@ -16,10 +16,6 @@ namespace BloodBankManager
     public class Utilities
     {
         public Form ThreadForm; 
-        public static void ThreadProc()
-        {
-           // Application.Run(new ThreadForm()); 
-        }
 
         /// <summary>
         /// Get the connection string
@@ -63,8 +59,16 @@ namespace BloodBankManager
             }
         }
 
+        /// <summary>
+        /// Function to check whether all relevant items are not empty or left unchecked. This is to prevent saving a patient's data with 
+        /// empty fields
+        /// </summary>
+        /// <param name="form">The form that will be checked</param>
+        /// <returns>A false result indicates that there is a field left empty. A true result indicates that all fields are properly filled out.</returns>
         public static bool AllEntriesFilled(Control form)
         {
+            bool radioExist = false; 
+            bool radioBtnCheck = false; 
             foreach(Control control in form.Controls)
             {
                 if (control is TextBox textBox)
@@ -83,13 +87,34 @@ namespace BloodBankManager
                 }
                 if (control is RadioButton radioButton)
                 {
-                    if(radioButton.Checked == false)
+                    radioExist = true;
+                    if(radioButton.Checked == true)
                     {
-                        return false; 
+                        radioBtnCheck = true; 
                     }
                 }
             }
+            if ((radioBtnCheck == false) && (radioExist == true)) return false; 
+
             return true; 
+        }
+        /// <summary>
+        /// This function should only be used on the NewDonor form. It will find the checked radio button that indicates the blood group of the donor.
+        /// </summary>
+        /// <param name="form">NewDonor form</param>
+        public static Control GetBloodGroup(Control form)
+        {
+            foreach (Control control in form.Controls)
+            {
+                if (control is RadioButton radioButton)
+                {
+                    if (radioButton.Checked == true)
+                    {
+                        return radioButton;
+                    }
+                }
+            }
+            return null; 
         }
     }
 }
