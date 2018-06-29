@@ -35,21 +35,6 @@ namespace BloodBankManager
         public SearchDonor()
         {
             InitializeComponent();
-            /*Donor donor = new Donor()
-            {
-                Name = "Dustin Craig",
-                BloodGroup = "A",
-                Age = "19",
-                Sex = "Male",
-                StreetAddress = "427 Coffee Ln",
-                City = "Loudon",
-                State = "TN",
-                Date = DateTime.Today,
-                PhoneNumber = "865 333 2160",
-                Email = "dustin@gmail.com",
-                Rh = "+"
-            };
-            AddRow(donor);*/
             FillRows();
         }
 
