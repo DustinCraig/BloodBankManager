@@ -16,7 +16,7 @@ namespace BloodBankManager
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new SearchDonor());
+            Application.Run(new LogIn());
         }
     }
 }

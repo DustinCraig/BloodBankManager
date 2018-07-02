@@ -30,27 +30,24 @@ namespace BloodBankManager
         private ComboBox search_category;
         private Label label1;
         private Button button1;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem fileToolStripMenuItem;
+        private ToolStripMenuItem newDonorToolStripMenuItem;
+        private ToolStripMenuItem donorListToolStripMenuItem;
         private DataGridView donor_data;
 
         public SearchDonor()
         {
             InitializeComponent();
-            /*Donor donor = new Donor()
-            {
-                Name = "Dustin Craig",
-                BloodGroup = "A",
-                Age = "19",
-                Sex = "Male",
-                StreetAddress = "427 Coffee Ln",
-                City = "Loudon",
-                State = "TN",
-                Date = DateTime.Today,
-                PhoneNumber = "865 333 2160",
-                Email = "dustin@gmail.com",
-                Rh = "+"
-            };
-            AddRow(donor);*/
             FillRows();
+        }
+
+        public void NewDonor(object sender, EventArgs e)
+        {
+            this.Hide();
+            var Donor = new NewDonor();
+            Donor.FormClosed += (s, args) => this.Close();
+            Donor.Show();
         }
 
         public void InitializeComponent()
@@ -73,7 +70,12 @@ namespace BloodBankManager
             this.search_category = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newDonorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.donorListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.donor_data)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // donor_data
@@ -214,9 +216,42 @@ namespace BloodBankManager
             this.button1.Text = "Close";
             this.button1.UseVisualStyleBackColor = true;
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(984, 24);
+            this.menuStrip1.TabIndex = 6;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newDonorToolStripMenuItem,
+            this.donorListToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // newDonorToolStripMenuItem
+            // 
+            this.newDonorToolStripMenuItem.Name = "newDonorToolStripMenuItem";
+            this.newDonorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newDonorToolStripMenuItem.Text = "New Donor";
+            this.newDonorToolStripMenuItem.Click += new EventHandler(this.NewDonor);
+            // 
+            // donorListToolStripMenuItem
+            // 
+            this.donorListToolStripMenuItem.Name = "donorListToolStripMenuItem";
+            this.donorListToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.donorListToolStripMenuItem.Text = "Donor List";
+            // 
             // SearchDonor
             // 
             this.ClientSize = new System.Drawing.Size(984, 644);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.search_category);
@@ -224,7 +259,10 @@ namespace BloodBankManager
             this.Controls.Add(this.search_button);
             this.Controls.Add(this.donor_data);
             this.Name = "SearchDonor";
+            this.Text = "Donor List";
             ((System.ComponentModel.ISupportInitialize)(this.donor_data)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

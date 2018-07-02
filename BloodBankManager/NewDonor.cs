@@ -51,6 +51,7 @@ namespace BloodBankManager
         private Panel panel1;
         private Label donor_warning;
         private Button donor_clear;
+        private ToolStripMenuItem donorListToolStripMenuItem;
         private ToolStripMenuItem newDonorToolStripMenuItem;
         #endregion
 
@@ -86,6 +87,15 @@ namespace BloodBankManager
             else MessageBox.Show("Please fill out all entries before saving");
             
         }
+
+        public void DonorList(object sender, EventArgs e)
+        {
+            this.Hide();
+            var DonorList = new SearchDonor();
+            DonorList.FormClosed += (s, args) => this.Close();
+            DonorList.Show();
+        }
+
         /// <summary>
         /// Clear all fields of the form
         /// </summary>
@@ -153,6 +163,7 @@ namespace BloodBankManager
             this.panel1 = new System.Windows.Forms.Panel();
             this.donor_warning = new System.Windows.Forms.Label();
             this.donor_clear = new System.Windows.Forms.Button();
+            this.donorListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -169,7 +180,8 @@ namespace BloodBankManager
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newDonorToolStripMenuItem});
+            this.newDonorToolStripMenuItem,
+            this.donorListToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -177,7 +189,7 @@ namespace BloodBankManager
             // newDonorToolStripMenuItem
             // 
             this.newDonorToolStripMenuItem.Name = "newDonorToolStripMenuItem";
-            this.newDonorToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.newDonorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.newDonorToolStripMenuItem.Text = "New Donor";
             // 
             // donor_name_entry_label
@@ -536,6 +548,13 @@ namespace BloodBankManager
             this.donor_clear.TabIndex = 37;
             this.donor_clear.Text = "Clear";
             this.donor_clear.UseVisualStyleBackColor = true;
+            // 
+            // donorListToolStripMenuItem
+            // 
+            this.donorListToolStripMenuItem.Name = "donorListToolStripMenuItem";
+            this.donorListToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.donorListToolStripMenuItem.Text = "Donor List";
+            this.donorListToolStripMenuItem.Click += new EventHandler(this.DonorList);
             // 
             // NewDonor
             // 
