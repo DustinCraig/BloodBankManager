@@ -92,6 +92,11 @@ namespace BloodBankManager
             this.login_button.Click += new EventHandler(this.Login_Attempt);
         }
 
+        private void Cancel(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
@@ -178,6 +183,7 @@ namespace BloodBankManager
             this.exit_button.TabIndex = 3;
             this.exit_button.Text = "Exit";
             this.exit_button.UseVisualStyleBackColor = true;
+            this.exit_button.Click += new System.EventHandler(this.Cancel);
             // 
             // LogIn
             // 
@@ -200,6 +206,5 @@ namespace BloodBankManager
             this.PerformLayout();
 
         }
-
     }
 }

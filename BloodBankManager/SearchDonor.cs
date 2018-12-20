@@ -32,8 +32,9 @@ namespace BloodBankManager
         private Button button1;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem fileToolStripMenuItem;
-        private ToolStripMenuItem newDonorToolStripMenuItem;
-        private ToolStripMenuItem donorListToolStripMenuItem;
+        private ToolStripMenuItem exitToolStripMenuItem;
+        private ToolStripMenuItem viewToolStripMenuItem;
+        private ToolStripMenuItem newDonorToolStripMenuItem1;
         private DataGridView donor_data;
 
         public SearchDonor()
@@ -44,15 +45,20 @@ namespace BloodBankManager
 
         public void NewDonor(object sender, EventArgs e)
         {
-            this.Hide();
             var Donor = new NewDonor();
-            Donor.FormClosed += (s, args) => this.Close();
+
             Donor.Show();
+        }
+
+        public void Cancel(object sender, EventArgs e)
+        {
+            Utilities.ResetAllControls(this);
+            this.Close();
         }
 
         public void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.donor_data = new System.Windows.Forms.DataGridView();
             this._Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BloodGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -72,8 +78,9 @@ namespace BloodBankManager
             this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newDonorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.donorListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newDonorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.donor_data)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -146,9 +153,9 @@ namespace BloodBankManager
             // 
             // Date
             // 
-            dataGridViewCellStyle2.Format = "D";
-            dataGridViewCellStyle2.NullValue = null;
-            this.Date.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.Format = "D";
+            dataGridViewCellStyle3.NullValue = null;
+            this.Date.DefaultCellStyle = dataGridViewCellStyle3;
             this.Date.HeaderText = "Date";
             this.Date.Name = "Date";
             this.Date.ReadOnly = true;
@@ -219,7 +226,8 @@ namespace BloodBankManager
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.viewToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(984, 24);
@@ -229,24 +237,32 @@ namespace BloodBankManager
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newDonorToolStripMenuItem,
-            this.donorListToolStripMenuItem});
+            this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
-            // newDonorToolStripMenuItem
+            // exitToolStripMenuItem
             // 
-            this.newDonorToolStripMenuItem.Name = "newDonorToolStripMenuItem";
-            this.newDonorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.newDonorToolStripMenuItem.Text = "New Donor";
-            this.newDonorToolStripMenuItem.Click += new EventHandler(this.NewDonor);
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.Cancel);
             // 
-            // donorListToolStripMenuItem
+            // viewToolStripMenuItem
             // 
-            this.donorListToolStripMenuItem.Name = "donorListToolStripMenuItem";
-            this.donorListToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.donorListToolStripMenuItem.Text = "Donor List";
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newDonorToolStripMenuItem1});
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.viewToolStripMenuItem.Text = "View";
+            // 
+            // newDonorToolStripMenuItem1
+            // 
+            this.newDonorToolStripMenuItem1.Name = "newDonorToolStripMenuItem1";
+            this.newDonorToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.newDonorToolStripMenuItem1.Text = "New Donor";
+            this.newDonorToolStripMenuItem1.Click += new System.EventHandler(this.NewDonor);
             // 
             // SearchDonor
             // 
