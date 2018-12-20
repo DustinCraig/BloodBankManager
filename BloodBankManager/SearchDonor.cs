@@ -58,7 +58,7 @@ namespace BloodBankManager
 
         public void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             this.donor_data = new System.Windows.Forms.DataGridView();
             this._Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BloodGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -88,6 +88,7 @@ namespace BloodBankManager
             // donor_data
             // 
             this.donor_data.AllowUserToAddRows = false;
+            this.donor_data.BackgroundColor = System.Drawing.SystemColors.ControlLight;
             this.donor_data.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.donor_data.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this._Name,
@@ -153,9 +154,9 @@ namespace BloodBankManager
             // 
             // Date
             // 
-            dataGridViewCellStyle3.Format = "D";
-            dataGridViewCellStyle3.NullValue = null;
-            this.Date.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.Format = "D";
+            dataGridViewCellStyle7.NullValue = null;
+            this.Date.DefaultCellStyle = dataGridViewCellStyle7;
             this.Date.HeaderText = "Date";
             this.Date.Name = "Date";
             this.Date.ReadOnly = true;
@@ -222,9 +223,11 @@ namespace BloodBankManager
             this.button1.TabIndex = 5;
             this.button1.Text = "Close";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Cancel);
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.MenuBar;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.viewToolStripMenuItem});
@@ -245,7 +248,7 @@ namespace BloodBankManager
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.Cancel);
             // 
@@ -260,12 +263,13 @@ namespace BloodBankManager
             // newDonorToolStripMenuItem1
             // 
             this.newDonorToolStripMenuItem1.Name = "newDonorToolStripMenuItem1";
-            this.newDonorToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.newDonorToolStripMenuItem1.Size = new System.Drawing.Size(134, 22);
             this.newDonorToolStripMenuItem1.Text = "New Donor";
             this.newDonorToolStripMenuItem1.Click += new System.EventHandler(this.NewDonor);
             // 
             // SearchDonor
             // 
+            this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(984, 644);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.button1);
@@ -274,6 +278,8 @@ namespace BloodBankManager
             this.Controls.Add(this.search_box);
             this.Controls.Add(this.search_button);
             this.Controls.Add(this.donor_data);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
             this.Name = "SearchDonor";
             this.Text = "Donor List";
             ((System.ComponentModel.ISupportInitialize)(this.donor_data)).EndInit();

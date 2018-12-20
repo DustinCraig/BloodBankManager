@@ -131,6 +131,9 @@ namespace BloodBankManager
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.donorListToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.donor_name_entry_label = new System.Windows.Forms.Label();
             this.donor_name_label = new System.Windows.Forms.Label();
             this.donor_name = new System.Windows.Forms.TextBox();
@@ -164,14 +167,12 @@ namespace BloodBankManager
             this.panel1 = new System.Windows.Forms.Panel();
             this.donor_warning = new System.Windows.Forms.Label();
             this.donor_clear = new System.Windows.Forms.Button();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.donorListToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.MenuBar;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.viewToolStripMenuItem});
@@ -188,6 +189,28 @@ namespace BloodBankManager
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.Cancel);
+            // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.donorListToolStripMenuItem1});
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.viewToolStripMenuItem.Text = "View";
+            // 
+            // donorListToolStripMenuItem1
+            // 
+            this.donorListToolStripMenuItem1.Name = "donorListToolStripMenuItem1";
+            this.donorListToolStripMenuItem1.Size = new System.Drawing.Size(128, 22);
+            this.donorListToolStripMenuItem1.Text = "Donor List";
+            this.donorListToolStripMenuItem1.Click += new System.EventHandler(this.DonorList);
             // 
             // donor_name_entry_label
             // 
@@ -521,7 +544,7 @@ namespace BloodBankManager
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel1.Location = new System.Drawing.Point(16, 60);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(582, 5);
@@ -546,30 +569,9 @@ namespace BloodBankManager
             this.donor_clear.Text = "Clear";
             this.donor_clear.UseVisualStyleBackColor = true;
             // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.Cancel);
-            // 
-            // viewToolStripMenuItem
-            // 
-            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.donorListToolStripMenuItem1});
-            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.viewToolStripMenuItem.Text = "View";
-            // 
-            // donorListToolStripMenuItem1
-            // 
-            this.donorListToolStripMenuItem1.Name = "donorListToolStripMenuItem1";
-            this.donorListToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.donorListToolStripMenuItem1.Text = "Donor List";
-            this.donorListToolStripMenuItem1.Click += new System.EventHandler(this.DonorList);
-            // 
             // NewDonor
             // 
+            this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(624, 361);
             this.Controls.Add(this.donor_clear);
             this.Controls.Add(this.donor_warning);
@@ -605,13 +607,13 @@ namespace BloodBankManager
             this.Controls.Add(this.donor_name_label);
             this.Controls.Add(this.donor_name_entry_label);
             this.Controls.Add(this.menuStrip1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "NewDonor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Blood Bank Management";
+            this.Load += new System.EventHandler(this.NewDonor_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -619,5 +621,9 @@ namespace BloodBankManager
 
         }
 
+        private void NewDonor_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
