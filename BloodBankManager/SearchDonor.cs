@@ -35,6 +35,9 @@ namespace BloodBankManager
         private ToolStripMenuItem exitToolStripMenuItem;
         private ToolStripMenuItem viewToolStripMenuItem;
         private ToolStripMenuItem newDonorToolStripMenuItem1;
+        private Button newButton;
+        private Button editButton;
+        private Button deleteButton;
         private DataGridView donor_data;
 
         public SearchDonor()
@@ -46,7 +49,6 @@ namespace BloodBankManager
         public void NewDonor(object sender, EventArgs e)
         {
             var Donor = new NewDonor();
-
             Donor.Show();
         }
 
@@ -58,7 +60,7 @@ namespace BloodBankManager
 
         public void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.donor_data = new System.Windows.Forms.DataGridView();
             this._Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BloodGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -81,6 +83,9 @@ namespace BloodBankManager
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newDonorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.newButton = new System.Windows.Forms.Button();
+            this.editButton = new System.Windows.Forms.Button();
+            this.deleteButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.donor_data)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -154,9 +159,9 @@ namespace BloodBankManager
             // 
             // Date
             // 
-            dataGridViewCellStyle7.Format = "D";
-            dataGridViewCellStyle7.NullValue = null;
-            this.Date.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Format = "D";
+            dataGridViewCellStyle1.NullValue = null;
+            this.Date.DefaultCellStyle = dataGridViewCellStyle1;
             this.Date.HeaderText = "Date";
             this.Date.Name = "Date";
             this.Date.ReadOnly = true;
@@ -267,10 +272,41 @@ namespace BloodBankManager
             this.newDonorToolStripMenuItem1.Text = "New Donor";
             this.newDonorToolStripMenuItem1.Click += new System.EventHandler(this.NewDonor);
             // 
+            // newButton
+            // 
+            this.newButton.Location = new System.Drawing.Point(12, 569);
+            this.newButton.Name = "newButton";
+            this.newButton.Size = new System.Drawing.Size(90, 32);
+            this.newButton.TabIndex = 7;
+            this.newButton.Text = "New";
+            this.newButton.UseVisualStyleBackColor = true;
+            this.newButton.Click += new System.EventHandler(this.NewButton_Click);
+            // 
+            // editButton
+            // 
+            this.editButton.Location = new System.Drawing.Point(108, 569);
+            this.editButton.Name = "editButton";
+            this.editButton.Size = new System.Drawing.Size(90, 32);
+            this.editButton.TabIndex = 8;
+            this.editButton.Text = "Edit";
+            this.editButton.UseVisualStyleBackColor = true;
+            // 
+            // deleteButton
+            // 
+            this.deleteButton.Location = new System.Drawing.Point(204, 569);
+            this.deleteButton.Name = "deleteButton";
+            this.deleteButton.Size = new System.Drawing.Size(90, 32);
+            this.deleteButton.TabIndex = 9;
+            this.deleteButton.Text = "Delete";
+            this.deleteButton.UseVisualStyleBackColor = true;
+            // 
             // SearchDonor
             // 
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(984, 644);
+            this.Controls.Add(this.deleteButton);
+            this.Controls.Add(this.editButton);
+            this.Controls.Add(this.newButton);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
@@ -292,6 +328,9 @@ namespace BloodBankManager
 
         private void FillRows()
         {
+
+            donor_data.Rows.Clear();
+
             string connString = BloodBankManager.Utilities.GetConnectionString();
             string commandString = "SELECT * FROM [dbo].[Donors]";
             var donors = new List<Donor>();
@@ -329,6 +368,11 @@ namespace BloodBankManager
             }
         }
 
+        private void RefreshList(object sender, EventArgs e)
+        {
+            this.FillRows();
+        }
+
         private void AddRow(Donor donor)
         {
             var index = donor_data.Rows.Add();
@@ -343,6 +387,14 @@ namespace BloodBankManager
             donor_data.Rows[index].Cells["PhoneNumber"].Value = donor.PhoneNumber;
             donor_data.Rows[index].Cells["Email"].Value = donor.Email;
             donor_data.Rows[index].Cells["Rh"].Value = donor.Rh;
+
+        }
+
+        private void NewButton_Click(object sender, EventArgs e)
+        {
+            var Donor = new NewDonor();
+            Donor.Show();
+            Donor.FormClosing += new FormClosingEventHandler(this.RefreshList); 
 
         }
     }
