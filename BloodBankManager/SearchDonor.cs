@@ -299,6 +299,7 @@ namespace BloodBankManager
             this.deleteButton.TabIndex = 9;
             this.deleteButton.Text = "Delete";
             this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.Click += new System.EventHandler(this.DeleteDonor);
             // 
             // SearchDonor
             // 
@@ -388,6 +389,51 @@ namespace BloodBankManager
             donor_data.Rows[index].Cells["Email"].Value = donor.Email;
             donor_data.Rows[index].Cells["Rh"].Value = donor.Rh;
 
+        }
+
+        private void DeleteDonor(object sender, EventArgs e)
+        {
+            if (donor_data.SelectedRows.Count > 0)
+            {
+                DataGridViewCellCollection cells = donor_data.SelectedRows[0].Cells;
+                string connString = BloodBankManager.Utilities.GetConnectionString();
+                string commandString = //"SELECT * FROM [dbo].[Donors] WHERE [dbo].[Donors].Name='" + (string)rows[0].Value + "'" ;
+                    @"
+                    DELETE FROM [dbo].[Donors] WHERE [dbo].[Donors].Name = '@name'
+                    AND [dbo].[Donors].BloodGroup = '@bloodGroup'
+                    AND [dbo].[Donors].Age = '@age'
+                    AND [dbo].[Donors].Sex = '@sex'
+                    AND [dbo].[Donors].StreetAddress = '@address'
+                    AND [dbo].[Donors].City = '@city'
+                    AND [dbo].[Donors].State = '@state'
+                    AND [dbo].[Donors].Date = '@date'
+                    AND [dbo].[Donors].PhoneNumber = '@phoneNumber'
+                    AND [dbo].[Donors].Email = '@email'
+                    AND [dbo].[Donors].Rh = '@rh'
+                    ";
+
+
+                using (SqlConnection connection = new SqlConnection(connString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand(commandString, connection);
+                    command.Parameters.AddWithValue("@name", cells[0].Value);
+                    command.Parameters.AddWithValue("@bloodGroup", cells[1].Value);
+                    command.Parameters.AddWithValue("@age", cells[2].Value);
+                    command.Parameters.AddWithValue("@sex", cells[3].Value);
+                    command.Parameters.AddWithValue("@address", cells[4].Value);
+                    command.Parameters.AddWithValue("@city", cells[5].Value);
+                    command.Parameters.AddWithValue("@state", cells[6].Value);
+                    //TODO Fix this
+                    //command.Parameters.AddWithValue("@date", DateTime.Parse((string)cells[7].Value));
+                    command.Parameters.AddWithValue("@phoneNumber", cells[8].Value);
+                    command.Parameters.AddWithValue("@email", cells[9].Value);
+                    command.Parameters.AddWithValue("@rh", cells[10].Value);
+
+                    command.ExecuteNonQuery();
+                    this.FillRows();
+                }
+            }
         }
 
         private void NewButton_Click(object sender, EventArgs e)
