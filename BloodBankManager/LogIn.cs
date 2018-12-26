@@ -54,9 +54,9 @@ namespace BloodBankManager
                     if (reader.Read() == true)
                     {
                         this.Hide();
-                        var newDonor = new NewDonor();
-                        newDonor.FormClosed += (s, args) => this.Close();
-                        newDonor.Show(); 
+                        var list = new SearchDonor();
+                        list.FormClosed += (s, args) => this.Close();
+                        list.Show(); 
                     }
                     else MessageBox.Show("Invalid Username or Password");
 

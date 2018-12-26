@@ -50,6 +50,7 @@ namespace BloodBankManager
         {
             var Donor = new NewDonor();
             Donor.Show();
+            Donor.Saved += new EventHandler(this.RefreshList); 
         }
 
         public void Cancel(object sender, EventArgs e)
@@ -280,7 +281,7 @@ namespace BloodBankManager
             this.newButton.TabIndex = 7;
             this.newButton.Text = "New";
             this.newButton.UseVisualStyleBackColor = true;
-            this.newButton.Click += new System.EventHandler(this.NewButton_Click);
+            this.newButton.Click += new System.EventHandler(this.NewDonor);
             // 
             // editButton
             // 
@@ -327,7 +328,7 @@ namespace BloodBankManager
 
         }
 
-        private void FillRows()
+        public void FillRows()
         {
 
             donor_data.Rows.Clear();
@@ -399,17 +400,16 @@ namespace BloodBankManager
                 string connString = BloodBankManager.Utilities.GetConnectionString();
                 string commandString = //"SELECT * FROM [dbo].[Donors] WHERE [dbo].[Donors].Name='" + (string)rows[0].Value + "'" ;
                     @"
-                    DELETE FROM [dbo].[Donors] WHERE [dbo].[Donors].Name = '@name'
-                    AND [dbo].[Donors].BloodGroup = '@bloodGroup'
-                    AND [dbo].[Donors].Age = '@age'
-                    AND [dbo].[Donors].Sex = '@sex'
-                    AND [dbo].[Donors].StreetAddress = '@address'
-                    AND [dbo].[Donors].City = '@city'
-                    AND [dbo].[Donors].State = '@state'
-                    AND [dbo].[Donors].Date = '@date'
-                    AND [dbo].[Donors].PhoneNumber = '@phoneNumber'
-                    AND [dbo].[Donors].Email = '@email'
-                    AND [dbo].[Donors].Rh = '@rh'
+                    DELETE FROM [dbo].[Donors] WHERE [dbo].[Donors].Name = @name
+                    AND [dbo].[Donors].BloodGroup = @bloodGroup
+                    AND [dbo].[Donors].Age = @age
+                    AND [dbo].[Donors].Sex = @sex
+                    AND [dbo].[Donors].StreetAddress = @address
+                    AND [dbo].[Donors].City = @city
+                    AND [dbo].[Donors].State = @state
+                    AND [dbo].[Donors].PhoneNumber = @phoneNumber
+                    AND [dbo].[Donors].Email = @email
+                    AND [dbo].[Donors].Rh = @rh
                     ";
 
 
@@ -425,7 +425,7 @@ namespace BloodBankManager
                     command.Parameters.AddWithValue("@city", cells[5].Value);
                     command.Parameters.AddWithValue("@state", cells[6].Value);
                     //TODO Fix this
-                    //command.Parameters.AddWithValue("@date", DateTime.Parse((string)cells[7].Value));
+                    //command.Parameters.AddWithValue("@date", DateTime.Parse(cells[7].Value.ToString()));
                     command.Parameters.AddWithValue("@phoneNumber", cells[8].Value);
                     command.Parameters.AddWithValue("@email", cells[9].Value);
                     command.Parameters.AddWithValue("@rh", cells[10].Value);
@@ -436,12 +436,6 @@ namespace BloodBankManager
             }
         }
 
-        private void NewButton_Click(object sender, EventArgs e)
-        {
-            var Donor = new NewDonor();
-            Donor.Show();
-            Donor.FormClosing += new FormClosingEventHandler(this.RefreshList); 
 
-        }
     }
 }
